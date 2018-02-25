@@ -4,7 +4,7 @@
 #include <linux/of_gpio.h>
 #include <linux/spi/spi.h>
 
-static int clt_probe(struct spi_device *spi)
+static int clt_read(struct spi_device *spi)
 {
 	u8 buf[2];
 	struct spi_transfer xfer = {
@@ -13,13 +13,26 @@ static int clt_probe(struct spi_device *spi)
 	};
 	int ret;
 
+	ret = spi_sync_transfer(spi, &xfer, 1);
+	if (ret < 0)
+		return ret;
+
+	dev_info(&spi->dev, "read 0x%02x 0x%02x\n", buf[0], buf[1]);
+
+	return 0;
+}
+
+static int clt_probe(struct spi_device *spi)
+{
+	int ret;
+
 	spi->bits_per_word = 8;
 	ret = spi_setup(spi);
 	if (ret)
 		return ret;
 
-	ret = spi_sync_transfer(spi, &xfer, 1);
-	if (ret < 0)
+	ret = clt_read(spi);
+	if (ret)
 		return ret;
 
 	dev_info(&spi->dev, "CLT01-38SQ7\n");
