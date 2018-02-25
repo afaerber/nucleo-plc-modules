@@ -23,7 +23,9 @@ static int vni_probe(struct spi_device *spi)
 		gpio_set_value(out_en, 1);
 
 	spi->bits_per_word = 16;
-	spi_setup(spi);
+	ret = spi_setup(spi);
+	if (ret)
+		return ret;
 
 	x = 0xf0;
 	buf[0] = x;

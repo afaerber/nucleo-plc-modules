@@ -14,7 +14,9 @@ static int clt_probe(struct spi_device *spi)
 	int ret;
 
 	spi->bits_per_word = 16;
-	spi_setup(spi);
+	ret = spi_setup(spi);
+	if (ret)
+		return ret;
 
 	ret = spi_sync_transfer(spi, &xfer, 1);
 	if (ret < 0)
