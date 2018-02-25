@@ -47,9 +47,6 @@ static int vni_probe(struct spi_device *spi)
 		    ((x >> 4) & 0x1) +
 		    ((x >> 6) & 0x1)) & 0x1) << 3;
 
-	buf[0] = buf[1];
-	buf[1] = x;
-
 	ret = spi_sync_transfer(spi, &xfer, 1);
 	if (ret < 0)
 		return ret;
