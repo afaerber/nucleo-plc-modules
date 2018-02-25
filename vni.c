@@ -121,7 +121,6 @@ static int vni_remove(struct spi_device *spi)
 
 static const struct of_device_id vni_dt_ids[] = {
 	{ .compatible = "st,vni8200xp" },
-//	{ .compatible = "st,clt01-38sq7" },
 	{}
 };
 MODULE_DEVICE_TABLE(of, vni_dt_ids);
