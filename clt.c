@@ -13,7 +13,7 @@ static int clt_probe(struct spi_device *spi)
 	};
 	int ret;
 
-	spi->bits_per_word = 16;
+	spi->bits_per_word = 8;
 	ret = spi_setup(spi);
 	if (ret)
 		return ret;

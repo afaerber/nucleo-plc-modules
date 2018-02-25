@@ -22,7 +22,7 @@ static int vni_probe(struct spi_device *spi)
 	if (gpio_is_valid(out_en))
 		gpio_set_value(out_en, 1);
 
-	spi->bits_per_word = 16;
+	spi->bits_per_word = 8;
 	ret = spi_setup(spi);
 	if (ret)
 		return ret;
